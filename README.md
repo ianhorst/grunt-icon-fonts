@@ -1,4 +1,5 @@
-# grunt-iconfonts
+# grunt-iconfonts 0.1.0 [![Build Status: Linux](https://travis-ci.org/ianhorst/grunt-iconfonts.svg?branch=master)](https://travis-ci.org/ianhorst/grunt-iconfonts)
+
 
 > Import icon fonts from icomoon.io
 
