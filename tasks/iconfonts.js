@@ -33,6 +33,7 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeln('Extracting', options.src[highlight]);
     copyCss(zip, options);
+    copyFonts(zip, options);
   });
 
 
@@ -47,15 +48,30 @@ module.exports = function(grunt) {
   }
 
   var copyCss = function (zip, options) {
-    var name = path.basename(options.src, '.zip');
-    var cssSrc = name + '/style.css';
+    var name = projectName(options);
+    var src = name + '/style.css';
 
-    grunt.verbose.writeln('●', cssSrc[highlight], '->', options.dest.css[highlight]);
+    grunt.verbose.writeln('●', src[highlight], '->', options.dest.css[highlight]);
 
-    var content = zip.readAsText(zip.getEntry(cssSrc));
+    var content = zip.readAsText(zip.getEntry(src));
 
     grunt.file.write(options.dest.css, content);
   }
 
+  var copyFonts = function (zip, options) {
+    var name = projectName(options);
+    var extensions = ['woff', 'ttf', 'eot', 'svg'];
 
+    extensions.forEach(function (ext) {
+      var src = name + '/fonts/' + name + '.' + ext;
+      grunt.verbose.writeln('●', src[highlight], '->', options.dest.fonts[highlight]);
+
+      var content = zip.readFile(zip.getEntry(src));
+      grunt.file.write(options.dest.fonts + '/' + name + '.' + ext, content);
+    });
+  }
+
+  var projectName = function (options) {
+    return path.basename(options.src, '.zip');
+  }
 };

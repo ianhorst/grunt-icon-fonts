@@ -43,7 +43,6 @@ module.exports = function(grunt) {
       tests: ['test/*_test.js']
     }
 
-
   });
 
   // Actually load this plugin's task(s).
