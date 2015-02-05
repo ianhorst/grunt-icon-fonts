@@ -10,7 +10,7 @@
 
 var path = require('path');
 var AdmZip = require('adm-zip');
-
+var moment = require('moment');
 
 
 module.exports = function(grunt) {
@@ -35,6 +35,7 @@ module.exports = function(grunt) {
     grunt.verbose.writeln('Extracting', options.src[highlight]);
     copyCss(zip, options);
     copyFonts(zip, options);
+    archiveZip(options);
   });
 
 
@@ -82,5 +83,15 @@ module.exports = function(grunt) {
 
   var replaceFontsUrl = function (css, options) {
     return css.replace(/fonts/g, options.fontsUrl)
+  }
+
+  var archiveZip = function (options) {
+    var hash = moment().format('YYYYMMDD-HHmmss');
+    var dir = path.dirname(options.src);
+    var name = path.basename(options.src, '.zip');
+    var archivedName = [name, hash, 'zip'].join('.');
+
+    grunt.file.copy(options.src, path.join(dir, archivedName));
+    grunt.file.delete(options.src);
   }
 };

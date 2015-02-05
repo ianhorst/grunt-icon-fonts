@@ -30,12 +30,19 @@ module.exports = function(grunt) {
     iconfonts: {
       icomoon: {
         options: {
-          src: 'test/fixtures/icomoon.zip',
+          src: 'tmp/icomoon.zip',
           dest: {
             css: 'tmp/styles/_icons.scss',
             fonts: 'tmp/fonts'
           }
         }
+      }
+    },
+
+    copy: {
+      test: {
+        src: 'test/fixtures/icomoon.zip',
+        dest: 'tmp/icomoon.zip'
       }
     },
 
@@ -52,10 +59,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'iconfonts', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'copy', 'iconfonts', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

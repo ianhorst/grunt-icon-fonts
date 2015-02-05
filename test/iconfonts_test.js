@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var grunt = require('grunt');
 
 exports.iconfonts = {
@@ -22,5 +21,15 @@ exports.iconfonts = {
     });
 
     test.done();
+  },
+  zip: function (test) {
+    var zipFiles = grunt.file.expand({cwd: 'tmp'}, '*.zip');
+
+    test.equal(zipFiles.length, 1, 'should contain single zip file');
+
+    var isArchivedZip = /icomoon\.\d{8}-\d{6}\.zip/.test(zipFiles[0]);
+    test.ok(isArchivedZip, 'should match archived filename "<name>.<YYYYMMDD-HHMMSS>.zip", actual filename "' + zipFiles[0] + '"');
+    test.done();
+
   }
 };
