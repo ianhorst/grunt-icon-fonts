@@ -23,7 +23,8 @@ module.exports = function(grunt) {
     dest: {
       css: 'app/styles/_icons.scss',
       fonts: 'app/fonts'
-    }
+    },
+    fontsUrl: '../fonts'
   }
 
   grunt.registerMultiTask('iconfonts', 'Import icon fonts from icomoon.io', function() {
@@ -35,6 +36,8 @@ module.exports = function(grunt) {
     copyCss(zip, options);
     copyFonts(zip, options);
   });
+
+
 
 
   // PRIVATE
@@ -49,13 +52,14 @@ module.exports = function(grunt) {
 
   var copyCss = function (zip, options) {
     var name = projectName(options);
-    var src = name + '/style.css';
+    var src = path.join(name, 'style.css');
 
     grunt.verbose.writeln('●', src[highlight], '->', options.dest.css[highlight]);
 
     var content = zip.readAsText(zip.getEntry(src));
 
-    grunt.file.write(options.dest.css, content);
+
+    grunt.file.write(options.dest.css, replaceFontsUrl(content, options));
   }
 
   var copyFonts = function (zip, options) {
@@ -63,15 +67,20 @@ module.exports = function(grunt) {
     var extensions = ['woff', 'ttf', 'eot', 'svg'];
 
     extensions.forEach(function (ext) {
-      var src = name + '/fonts/' + name + '.' + ext;
+      var filename = [name, ext].join('.');
+      var src = path.join(name, 'fonts', filename);
       grunt.verbose.writeln('●', src[highlight], '->', options.dest.fonts[highlight]);
 
       var content = zip.readFile(zip.getEntry(src));
-      grunt.file.write(options.dest.fonts + '/' + name + '.' + ext, content);
+      grunt.file.write(path.join(options.dest.fonts, filename), content);
     });
   }
 
   var projectName = function (options) {
     return path.basename(options.src, '.zip');
+  }
+
+  var replaceFontsUrl = function (css, options) {
+    return css.replace(/fonts/g, options.fontsUrl)
   }
 };

@@ -4,15 +4,12 @@ var fs = require('fs');
 var grunt = require('grunt');
 
 exports.iconfonts = {
-  setUp: function(done) {
-    // setup here if necessary
-    done();
-  },
   css: function (test) {
-    fs.exists('tmp/styles/_icons.scss', function (exists) {
-      test.ok(exists, 'should be imported');
-      test.done();
-    });
+    var actual = grunt.file.read('tmp/styles/_icons.scss');
+    var expected = grunt.file.read('test/expected/styles/_icons.scss');
+
+    test.equal(actual, expected, 'should be imported with correct fonts base url');
+    test.done();
   },
   fonts: function (test) {
     var extensions = ['woff', 'ttf', 'svg', 'eot'];
