@@ -23,32 +23,22 @@ module.exports = function(grunt) {
       }
     },
 
-    // Before generating any new files, remove any previously-created files.
     clean: {
       test: ['tmp']
     },
 
-    // Configuration to be run (and then tested).
     iconfonts: {
-      default_options: {
+      icomoon: {
         options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-            punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
+          src: 'test/fixtures/icomoon.zip',
+          dest: {
+            css: 'tmp/styles/_icons.scss',
+            fonts: 'tmp/fonts'
+          }
         }
       }
     },
 
-    // Unit tests.
     nodeunit: {
       tests: ['test/*_test.js']
     }

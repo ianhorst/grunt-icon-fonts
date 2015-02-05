@@ -1,6 +1,6 @@
 # grunt-iconfonts
 
-> Grunt task imports icon fonts from icomoon.io
+> Import icon fonts from icomoon.io
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
