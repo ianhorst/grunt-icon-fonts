@@ -1,4 +1,4 @@
-# grunt-iconfonts 0.1.3 [![Build Status: Linux](https://travis-ci.org/ianhorst/grunt-iconfonts.svg?branch=master)](https://travis-ci.org/ianhorst/grunt-iconfonts)
+# grunt-iconfonts 0.1.4 [![Build Status: Linux](https://travis-ci.org/ianhorst/grunt-iconfonts.svg?branch=master)](https://travis-ci.org/ianhorst/grunt-iconfonts)
 
 
 > Import icon fonts from icomoon.io
@@ -111,6 +111,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2015-02-07   v0.1.4   Publishing to npm
  * 2015-02-07   v0.1.3   Fixed dependencies
  * 2015-02-07   v0.1.1   Publishing to npm
  * 2015-02-07   v0.1.0   Initial release
