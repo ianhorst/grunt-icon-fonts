@@ -111,4 +111,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * 2015-02-07   v0.1.1   Publishing to npm
  * 2015-02-07   v0.1.0   Initial release

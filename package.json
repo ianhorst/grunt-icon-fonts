@@ -1,7 +1,7 @@
 {
   "name": "grunt-iconfonts",
   "description": "Import icon fonts from icomoon.io",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/ianhorst/grunt-iconfonts",
   "author": {
     "name": "Ian Horst",
