@@ -1,6 +1,6 @@
 {
   "name": "grunt-iconfonts",
-  "description": "Grunt task imports icon fonts from icomoon.io",
+  "description": "Import icon fonts from icomoon.io",
   "version": "0.1.0",
   "homepage": "https://github.com/ianhorst/grunt-iconfonts",
   "author": {
