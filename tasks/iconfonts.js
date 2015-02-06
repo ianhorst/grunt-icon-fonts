@@ -18,32 +18,25 @@ module.exports = function(grunt) {
 
   var highlight = 'cyan';
 
-  var defaults = {
-    fontsDest: 'app/fonts',
-    fontsUrl: '../fonts'
-  }
-
   grunt.registerMultiTask('iconfonts', 'Import icon fonts from icomoon.io', function() {
-    var options = this.options(defaults);
+    var options = this.options({
+      fontsDest: 'app/fonts',
+      fontsUrl: '../fonts'
+    });
 
+    // Check required options
     ['src', 'cssDest'].forEach(function (attr) {
       if (!options[attr]) {
         grunt.fail.fatal('Please specify options.src');
       }
     });
 
-    var openZip = function (src) {
-      try {
-        return new AdmZip(src);
-      } catch (e) {
-        grunt.log.error(e, src);
-      }
-    }
-
-    var zip = openZip(options.src);
-
-    if (!zip) {
-      return;
+    // Open ZIP file
+    try {
+      var zip = AdmZip(options.src);
+    } catch (e) {
+      grunt.log.error(e, src);
+      grunt.log.fatal();
     }
 
     var copyCss = function (zip) {
@@ -89,7 +82,9 @@ module.exports = function(grunt) {
       return css.replace(/fonts/g, options.fontsUrl)
     }
 
-    grunt.verbose.writeln('Extracting', options.src[highlight]);
+
+    grunt.verbose.writeln('Processing', options.src[highlight]);
+
     copyCss(zip);
     copyFonts(zip);
     archiveZip(options.src);
