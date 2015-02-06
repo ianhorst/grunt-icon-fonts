@@ -31,10 +31,8 @@ module.exports = function(grunt) {
       icomoon: {
         options: {
           src: 'tmp/icomoon.zip',
-          dest: {
-            css: 'tmp/styles/_icons.scss',
-            fonts: 'tmp/fonts'
-          }
+          cssDest: 'tmp/styles/_icons.scss',
+          fontsDest: 'tmp/fonts'
         }
       }
     },

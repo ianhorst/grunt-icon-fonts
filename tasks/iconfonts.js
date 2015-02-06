@@ -8,6 +8,7 @@
 
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var AdmZip = require('adm-zip');
 var moment = require('moment');
@@ -18,16 +19,18 @@ module.exports = function(grunt) {
   var highlight = 'cyan';
 
   var defaults = {
-    src: '~/Downloads/icomoon.zip',
-    dest: {
-      css: 'app/styles/_icons.scss',
-      fonts: 'app/fonts'
-    },
+    fontsDest: 'app/fonts',
     fontsUrl: '../fonts'
   }
 
   grunt.registerMultiTask('iconfonts', 'Import icon fonts from icomoon.io', function() {
     var options = this.options(defaults);
+
+    ['src', 'cssDest'].forEach(function (attr) {
+      if (!options[attr]) {
+        grunt.fail.fatal('Please specify options.src');
+      }
+    });
 
     var openZip = function (src) {
       try {
@@ -39,15 +42,19 @@ module.exports = function(grunt) {
 
     var zip = openZip(options.src);
 
+    if (!zip) {
+      return;
+    }
+
     var copyCss = function (zip) {
       var name = projectName(options);
-      var src = path.join(name, 'style.css');
+      var src = path.join('style.css');
 
-      grunt.verbose.writeln('●', src[highlight], '->', options.dest.css[highlight]);
+      grunt.verbose.writeln('●', src[highlight], '->', options.cssDest[highlight]);
 
       var content = zip.readAsText(zip.getEntry(src));
 
-      grunt.file.write(options.dest.css, replaceFontsUrl(content, options));
+      grunt.file.write(options.cssDest, replaceFontsUrl(content, options));
     }
 
     var copyFonts = function (zip) {
@@ -56,11 +63,11 @@ module.exports = function(grunt) {
 
       extensions.forEach(function (ext) {
         var filename = [name, ext].join('.');
-        var src = path.join(name, 'fonts', filename);
-        grunt.verbose.writeln('●', src[highlight], '->', options.dest.fonts[highlight]);
+        var src = path.join('fonts', filename);
+        grunt.verbose.writeln('●', src[highlight], '->', options.fontsDest[highlight]);
 
         var content = zip.readFile(zip.getEntry(src));
-        grunt.file.write(path.join(options.dest.fonts, filename), content);
+        grunt.file.write(path.join(options.fontsDest, filename), content);
       });
     }
 
@@ -74,8 +81,8 @@ module.exports = function(grunt) {
       var name = path.basename(src, '.zip');
       var archivedName = [name, hash, 'zip'].join('.');
 
-      grunt.file.copy(src, path.join(dir, archivedName));
-      grunt.file.delete(src);
+      // grunt.file can delete files only in cwd
+      fs.rename(src, path.join(dir, archivedName));
     }
 
     var replaceFontsUrl = function (css) {
