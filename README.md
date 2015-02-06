@@ -3,6 +3,8 @@
 
 > Import icon fonts from icomoon.io
 
+This plugin imports icon fonts downloaded from [icomoon.io](http://icomoon.io/). When task is completed, zip file is renamed.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -18,7 +20,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-iconfonts');
 ```
 
-## The "iconfonts" task
+## The "iconfonts" Task
 
 ### Overview
 In your project's Gruntfile, add a section named `iconfonts` to the data object passed into `grunt.initConfig()`.
@@ -38,47 +40,68 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.src
 Type: `String`
-Default value: `',  '`
+Default value:
 
-A string value that is used to do something with whatever.
+REQUIRED. Specify the location of downloaded icomoon zip file.
 
-#### options.punctuation
+#### options.cssDest
 Type: `String`
-Default value: `'.'`
+Default value:
 
-A string value that is used to do something else with whatever else.
+REQUIRED. Copy style.css from icomoon zip file to destination file.
+
+#### options.fontsDest
+Type: `String`
+Default value: `'app/fonts'`
+
+Copy all fonts files from icomoon zip file to destination path.
+
+#### options.fontsPath
+Type: `String`
+Default value: `'../fonts'`
+
+Fonts path relative to css file in a web browser.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### Simple Example
 
 ```js
 grunt.initConfig({
   iconfonts: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    icomoon: {
+      options: {
+        src: '/Users/homer/Downloads/icomoon.zip',
+        cssDest: 'app/styles/base/_icons.scss',
+      }
+    }
   },
 });
 ```
+#### Together with watch task
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+To import icon fonts automatically every time you download zip file, add the following configuration.
 
 ```js
 grunt.initConfig({
+  watch: {
+    iconfonts: {
+      options: {
+        cwd: '/Users/homer/Downloads'
+      },
+      files: ['icomoon.zip'],
+      tasks: ['iconfonts']
+    }
+  },
   iconfonts: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    icomoon: {
+      options: {
+        src: '/Users/homer/Downloads/icomoon.zip',
+        cssDest: 'app/styles/base/_icons.scss',
+      }
+    }
   },
 });
 ```
@@ -87,4 +110,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+
+ * 2015-02-07   v0.1.0   Initial release
