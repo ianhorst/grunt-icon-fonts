@@ -1,8 +1,8 @@
 {
-  "name": "grunt-icon-fonts",
+  "name": "grunt-iconfonts",
   "description": "Grunt task imports icon fonts from icomoon.io",
   "version": "0.1.0",
-  "homepage": "https://github.com/ianhorst/grunt-icon-fonts",
+  "homepage": "https://github.com/ianhorst/grunt-iconfonts",
   "author": {
     "name": "Ian Horst",
     "email": "ian.horst@gmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ianhorst/grunt-icon-fonts.git"
+    "url": "git://github.com/ianhorst/grunt-iconfonts.git"
   },
   "bugs": {
-    "url": "https://github.com/ianhorst/grunt-icon-fonts/issues"
+    "url": "https://github.com/ianhorst/grunt-iconfonts/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/ianhorst/grunt-icon-fonts/blob/master/LICENSE-MIT"
+      "url": "https://github.com/ianhorst/grunt-iconfonts/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
